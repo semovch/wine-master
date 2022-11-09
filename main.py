@@ -37,7 +37,7 @@ def main():
 
     winery_age = datetime.datetime.now().year - year_of_foundation 
 
-    wines = pandas.read_excel('wine.xlsx', keep_default_na=False).to_dict(orient='records')
+    wines = pandas.read_excel(path, keep_default_na=False).to_dict(orient='records')
 
     all_drinks = defaultdict(list)
 
