@@ -9,15 +9,6 @@ import pandas
 from collections import defaultdict
 
 
-env = Environment(
-    loader=FileSystemLoader('.'),
-    autoescape=select_autoescape(['html', 'xml'])
-)
-
-template = env.get_template('template.html')
-
-age_of_winery = datetime.datetime.now().year - 1920 
-
 def year_with_you(age):
     if (age%10==1) and (age != 11) and (age != 111) and (age != 211):
         return f'уже {age} год с вами'
@@ -25,7 +16,17 @@ def year_with_you(age):
         return f'уже {age} года с вами'
     else:
         return f'уже {age} лет с вами'
-   
+
+    
+def main():
+env = Environment(
+    loader=FileSystemLoader('.'),
+    autoescape=select_autoescape(['html', 'xml'])
+)
+template = env.get_template('template.html')
+
+age_of_winery = datetime.datetime.now().year - 1920 
+
 wines = pandas.read_excel('wine3.xlsx', keep_default_na=False).to_dict(orient='records')
 
 all_drinks = defaultdict(list)
@@ -43,3 +44,7 @@ with open('index.html', 'w', encoding="utf8") as file:
 
 server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
 server.serve_forever()
+
+
+if __name__ == '__main__':
+    main()  
