@@ -45,7 +45,7 @@ def main():
         all_drinks[wine['Категория']].append(wine) 
 
     rendered_page = template.render(
-        age_with_you = count_age(winery_age),
+        years_with_you = count_age(winery_age),
         all_drinks = all_drinks
     )
     with open('index.html', 'w', encoding="utf8") as file:
