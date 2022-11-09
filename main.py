@@ -9,7 +9,7 @@ import pandas
 from collections import defaultdict
 
 
-def year_with_you(age):
+def count_age(age):
     if (age%10==1) and (age != 11) and (age != 111) and (age != 211):
         return f'уже {age} год с вами'
     elif (age%10>1) and (age%10<5) and (age!=12) and (age!=13) and (age!=14):
@@ -25,7 +25,9 @@ env = Environment(
 )
 template = env.get_template('template.html')
 
-age_of_winery = datetime.datetime.now().year - 1920 
+year_of_foundation = 1920 
+
+winery_age = datetime.datetime.now().year - year_of_foundation 
 
 wines = pandas.read_excel('wine3.xlsx', keep_default_na=False).to_dict(orient='records')
 
@@ -35,7 +37,7 @@ for wine in wines:
    all_drinks[wine['Категория']].append(wine) 
 
 rendered_page = template.render(
-    age_with_you = year_with_you(age_of_winery),
+    age_with_you = count_age(winery_age),
     all_drinks = all_drinks
 )
 print(all_drinks)
